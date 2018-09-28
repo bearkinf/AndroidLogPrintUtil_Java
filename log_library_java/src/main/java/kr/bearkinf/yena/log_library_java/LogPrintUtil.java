@@ -41,12 +41,33 @@ public class LogPrintUtil {
     /**
      * 로그켓 출력 메서드
      */
-    private static String buildMakeMessage(Object strMsg) {
+    private static String buildMakeMessage(Object strMsg, boolean sleepCheck) {
 
-        StackTraceElement ste = Thread.currentThread().getStackTrace()[4];
-        StringBuilder sb;
-        sb = new StringBuilder();
-        sb.append("(" + ste.getFileName() + ":" + ste.getLineNumber() + ")");
+        if (sleepCheck) {
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        StackTraceElement[] traceElement = Thread.currentThread().getStackTrace();
+        int position = 0;
+        boolean find = false;
+
+        for (int i = 0; i < traceElement.length; i++) {
+            if (traceElement[i].getClassName().equals(LogPrintUtil.class.getName())) {
+                find = true;
+            }
+            if (find && !traceElement[i].getClassName().equals(LogPrintUtil.class.getName())) {
+                position = i;
+                break;
+            }
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("(" + traceElement[position].getFileName() + ":" + traceElement[position].getLineNumber() + ")");
         sb.append(strMsg);
         return sb.toString();
 
@@ -59,106 +80,137 @@ public class LogPrintUtil {
         if ((FLAGS & Debug) != Debug) {
             return;
         }
-
-        Log.d(TAG, buildMakeMessage(strMsg));
+        d(strMsg, TAG);
     }
-
     /**
      * 파란색, blue
      */
-    public static void d(String strTag, Object strMsg) {
+    public static void d(Object strMsg, String strTag) {
         if ((FLAGS & Debug) != Debug) {
             return;
         }
 
-        Log.d(strTag, buildMakeMessage(strMsg));
+        d(strMsg, strTag, false);
     }
-
+    /**
+     * 파란색, blue
+     */
+    public static void d(Object strMsg, String strTag, boolean sleepCheck) {
+        if ((FLAGS & Debug) != Debug) {
+            return;
+        }
+        Log.d(strTag, buildMakeMessage(strMsg, sleepCheck));
+    }
     /**
      * 노란색, yellow
      */
     public static void w(Object strMsg) {
-        if ((FLAGS & Warn) != Warn) {
+        if ((FLAGS & Debug) != Debug) {
             return;
         }
-
-        Log.w(TAG, buildMakeMessage(strMsg));
+        w(strMsg, TAG);
     }
-
     /**
      * 노란색, yellow
      */
-    public static void w(String strTag, Object strMsg) {
-        if ((FLAGS & Warn) != Warn) {
+    public static void w(Object strMsg, String strTag) {
+        if ((FLAGS & Debug) != Debug) {
             return;
         }
 
-        Log.w(strTag, buildMakeMessage(strMsg));
+        w(strMsg, strTag, false);
     }
-
+    /**
+     * 노란색, yellow
+     */
+    public static void w(Object strMsg, String strTag, boolean sleepCheck) {
+        if ((FLAGS & Debug) != Debug) {
+            return;
+        }
+        Log.w(strTag, buildMakeMessage(strMsg, sleepCheck));
+    }
     /**
      * 빨간색, red
      */
     public static void e(Object strMsg) {
-        if ((FLAGS & Error) != Error) {
+        if ((FLAGS & Debug) != Debug) {
             return;
         }
-
-        Log.e(TAG, buildMakeMessage(strMsg));
+        e(strMsg, TAG);
     }
-
     /**
      * 빨간색, red
      */
-    public static void e(String strTag, Object strMsg) {
-        if ((FLAGS & Error) != Error) {
+    public static void e(Object strMsg, String strTag) {
+        if ((FLAGS & Debug) != Debug) {
             return;
         }
 
-        Log.e(strTag, buildMakeMessage(strMsg));
+        e(strMsg, strTag, false);
     }
-
+    /**
+     * 빨간색, red
+     */
+    public static void e(Object strMsg, String strTag, boolean sleepCheck) {
+        if ((FLAGS & Debug) != Debug) {
+            return;
+        }
+        Log.e(strTag, buildMakeMessage(strMsg, sleepCheck));
+    }
     /**
      * 녹색, green
      */
     public static void i(Object strMsg) {
-        if ((FLAGS & Info) != Info) {
+        if ((FLAGS & Debug) != Debug) {
             return;
         }
-
-        Log.i(TAG, buildMakeMessage(strMsg));
+        i(strMsg, TAG);
     }
-
     /**
      * 녹색, green
      */
-    public static void i(String strTag, Object strMsg) {
-        if ((FLAGS & Info) != Info) {
+    public static void i(Object strMsg, String strTag) {
+        if ((FLAGS & Debug) != Debug) {
             return;
         }
 
-        Log.i(strTag, buildMakeMessage(strMsg));
+        i(strMsg, strTag, false);
     }
-
+    /**
+     * 녹색, green
+     */
+    public static void i(Object strMsg, String strTag, boolean sleepCheck) {
+        if ((FLAGS & Debug) != Debug) {
+            return;
+        }
+        Log.i(strTag, buildMakeMessage(strMsg, sleepCheck));
+    }
     /**
      * 하얀색, white
      */
     public static void v(Object strMsg) {
-        if ((FLAGS & Verbose) != Verbose) {
+        if ((FLAGS & Debug) != Debug) {
             return;
         }
-
-        Log.v(TAG, buildMakeMessage(strMsg));
+        v(strMsg, TAG);
     }
-
     /**
      * 하얀색, white
      */
-    public static void v(String strTag, Object strMsg) {
-        if ((FLAGS & Verbose) != Verbose) {
+    public static void v(Object strMsg, String strTag) {
+        if ((FLAGS & Debug) != Debug) {
             return;
         }
 
-        Log.v(strTag, buildMakeMessage(strMsg));
+        v(strMsg, strTag, false);
+    }
+    /**
+     * 하얀색, white
+     */
+    public static void v(Object strMsg, String strTag, boolean sleepCheck) {
+        if ((FLAGS & Debug) != Debug) {
+            return;
+        }
+        Log.v(strTag, buildMakeMessage(strMsg, sleepCheck));
     }
 }

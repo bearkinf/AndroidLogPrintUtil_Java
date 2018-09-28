@@ -1,2 +1,0 @@
-kr.bearkinf.yena.log_library_java.test
-int string app_name 0x7f010000
