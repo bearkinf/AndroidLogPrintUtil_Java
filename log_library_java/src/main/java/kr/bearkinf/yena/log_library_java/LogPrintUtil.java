@@ -51,37 +51,52 @@ public class LogPrintUtil {
             }
         }
 
-
         StackTraceElement[] traceElement = Thread.currentThread().getStackTrace();
+
         int position = 0;
         boolean find = false;
 
+        // 실제 내 소스가 실행되는 곳의 위치를 찾는다.
         for (int i = 0; i < traceElement.length; i++) {
+            // 내위치를 찾고.
             if (traceElement[i].getClassName().equals(LogPrintUtil.class.getName())) {
                 find = true;
             }
+            // 내위치를 찾은 다음 위치를 정하는곳이 실제 보여지는, 동작하는 클래스이다.
             if (find && !traceElement[i].getClassName().equals(LogPrintUtil.class.getName())) {
                 position = i;
                 break;
             }
         }
 
-        StringBuilder sb = new StringBuilder();
+        StringBuffer sb = new StringBuffer();
         sb.append("(" + traceElement[position].getFileName() + ":" + traceElement[position].getLineNumber() + ")");
         sb.append(strMsg);
         return sb.toString();
-
     }
 
     /**
      * 파란색, blue
      */
     public static void d(Object strMsg) {
+
         if ((FLAGS & Debug) != Debug) {
             return;
         }
-        d(strMsg, TAG);
+        Log.d(TAG, buildMakeMessage(strMsg, false));
     }
+
+    /**
+     * 파란색, blue
+     */
+    public static void d(Object strMsg, boolean sleepCheck) {
+
+        if ((FLAGS & Debug) != Debug) {
+            return;
+        }
+        Log.d(TAG, buildMakeMessage(strMsg, sleepCheck));
+    }
+
     /**
      * 파란색, blue
      */
@@ -89,9 +104,9 @@ public class LogPrintUtil {
         if ((FLAGS & Debug) != Debug) {
             return;
         }
-
-        d(strMsg, strTag, false);
+        Log.d(strTag, buildMakeMessage(strMsg, false));
     }
+
     /**
      * 파란색, blue
      */
@@ -101,6 +116,7 @@ public class LogPrintUtil {
         }
         Log.d(strTag, buildMakeMessage(strMsg, sleepCheck));
     }
+
     /**
      * 노란색, yellow
      */
@@ -108,8 +124,19 @@ public class LogPrintUtil {
         if ((FLAGS & Debug) != Debug) {
             return;
         }
-        w(strMsg, TAG);
+        Log.w(TAG, buildMakeMessage(strMsg, false));
     }
+
+    /**
+     * 노란색, yellow
+     */
+    public static void w(Object strMsg, boolean sleepCheck) {
+        if ((FLAGS & Debug) != Debug) {
+            return;
+        }
+        Log.w(TAG, buildMakeMessage(strMsg, sleepCheck));
+    }
+
     /**
      * 노란색, yellow
      */
@@ -117,9 +144,9 @@ public class LogPrintUtil {
         if ((FLAGS & Debug) != Debug) {
             return;
         }
-
-        w(strMsg, strTag, false);
+        Log.w(strTag, buildMakeMessage(strMsg, false));
     }
+
     /**
      * 노란색, yellow
      */
@@ -129,6 +156,7 @@ public class LogPrintUtil {
         }
         Log.w(strTag, buildMakeMessage(strMsg, sleepCheck));
     }
+
     /**
      * 빨간색, red
      */
@@ -136,8 +164,20 @@ public class LogPrintUtil {
         if ((FLAGS & Debug) != Debug) {
             return;
         }
-        e(strMsg, TAG);
+        Log.e(TAG, buildMakeMessage(strMsg, false));
     }
+
+    /**
+     * 빨간색, red
+     */
+    public static void e(Object strMsg, boolean sleepCheck) {
+        if ((FLAGS & Debug) != Debug) {
+            return;
+        }
+        Log.e(TAG, buildMakeMessage(strMsg, sleepCheck));
+    }
+
+
     /**
      * 빨간색, red
      */
@@ -145,9 +185,9 @@ public class LogPrintUtil {
         if ((FLAGS & Debug) != Debug) {
             return;
         }
-
-        e(strMsg, strTag, false);
+        Log.e(strTag, buildMakeMessage(strMsg, false));
     }
+
     /**
      * 빨간색, red
      */
@@ -157,6 +197,7 @@ public class LogPrintUtil {
         }
         Log.e(strTag, buildMakeMessage(strMsg, sleepCheck));
     }
+
     /**
      * 녹색, green
      */
@@ -164,8 +205,21 @@ public class LogPrintUtil {
         if ((FLAGS & Debug) != Debug) {
             return;
         }
-        i(strMsg, TAG);
+        Log.i(TAG, buildMakeMessage(strMsg, false));
     }
+
+
+    /**
+     * 녹색, green
+     */
+    public static void i(Object strMsg, boolean sleepCheck) {
+        if ((FLAGS & Debug) != Debug) {
+            return;
+        }
+        Log.i(TAG, buildMakeMessage(strMsg, sleepCheck));
+    }
+
+
     /**
      * 녹색, green
      */
@@ -173,9 +227,9 @@ public class LogPrintUtil {
         if ((FLAGS & Debug) != Debug) {
             return;
         }
-
-        i(strMsg, strTag, false);
+        Log.i(strTag, buildMakeMessage(strMsg, false));
     }
+
     /**
      * 녹색, green
      */
@@ -185,6 +239,7 @@ public class LogPrintUtil {
         }
         Log.i(strTag, buildMakeMessage(strMsg, sleepCheck));
     }
+
     /**
      * 하얀색, white
      */
@@ -192,8 +247,19 @@ public class LogPrintUtil {
         if ((FLAGS & Debug) != Debug) {
             return;
         }
-        v(strMsg, TAG);
+        Log.v(TAG, buildMakeMessage(strMsg, false));
     }
+
+    /**
+     * 하얀색, white
+     */
+    public static void v(Object strMsg, boolean sleepCheck) {
+        if ((FLAGS & Debug) != Debug) {
+            return;
+        }
+        Log.v(TAG, buildMakeMessage(strMsg, sleepCheck));
+    }
+
     /**
      * 하얀색, white
      */
@@ -201,9 +267,9 @@ public class LogPrintUtil {
         if ((FLAGS & Debug) != Debug) {
             return;
         }
-
-        v(strMsg, strTag, false);
+        Log.v(strTag, buildMakeMessage(strMsg, false));
     }
+
     /**
      * 하얀색, white
      */
