@@ -1,0 +1,4 @@
+#Thu Mar 14 15:02:34 KST 2019
+base.0=/Users/bearkinf/Project/Android_Project/Git/AndroidLogPrintUtil_Java/app/build/intermediates/transforms/dexMerger/debug/7
+path.0=classes.dex
+renamed.0=classes.dex
