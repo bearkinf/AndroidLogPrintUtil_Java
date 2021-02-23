@@ -1,12 +1,18 @@
 # AndroidLogLibJava
 Android logcat go to Line
 
+ implementation 'com.github.bearkinf:AndroidLogPrintUtil_Java:1.1.1'
+
+
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        
 
 
         LogPrintUtil.setDebug( BuildConfig.DEBUG ? LogPrintUtil.All : LogPrintUtil.None);
