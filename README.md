@@ -1,7 +1,10 @@
 # AndroidLogLibJava
 Android logcat go to Line
 
- implementation 'com.github.bearkinf:AndroidLogPrintUtil_Java:1.1.1'
+
+
+maven { url 'https://jitpack.io' }
+implementation 'com.github.bearkinf:AndroidLogPrintUtil_Java:1.1.1'
 
 
 
